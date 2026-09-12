@@ -1,0 +1,28 @@
+services:
+  openvarde-nodered:
+    image: nodered/node-red:latest
+    container_name: openvarde-nodered
+    restart: unless-stopped
+
+    environment:
+      - TZ=Europe/Oslo
+
+    ports:
+      - "1880:1880"
+
+    volumes:
+      - nodered-data:/data
+      - openvarde-data:/var/lib/openvarde:ro
+
+    networks:
+      - openvarde
+
+volumes:
+  nodered-data:
+  openvarde-data:
+    external: true
+    name: openvarde-data
+
+networks:
+  openvarde:
+    external: true
